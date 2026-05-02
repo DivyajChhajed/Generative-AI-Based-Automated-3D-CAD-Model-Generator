@@ -42,15 +42,15 @@ OUT_DIR.mkdir(exist_ok=True)   # create output/ on first import if missing
 # -------------------- MATERIAL DATABASE --------------------
 
 MATERIALS = {
-    "Carbon Steel (A105)": {"density_kg_m3": 7850, "cost_per_kg_usd": 1.20},
-    "Stainless Steel 316": {"density_kg_m3": 8000, "cost_per_kg_usd": 4.50},
-    "Stainless Steel 304": {"density_kg_m3": 8000, "cost_per_kg_usd": 3.80},
-    "Duplex Steel (2205)": {"density_kg_m3": 7800, "cost_per_kg_usd": 6.50},
-    "Inconel 625": {"density_kg_m3": 8440, "cost_per_kg_usd": 25.00},
-    "Inconel 718": {"density_kg_m3": 8190, "cost_per_kg_usd": 30.00},
-    "Monel 400": {"density_kg_m3": 8800, "cost_per_kg_usd": 18.00},
-    "Titanium Grade 5": {"density_kg_m3": 4430, "cost_per_kg_usd": 35.00},
-    "Aluminum 6061": {"density_kg_m3": 2700, "cost_per_kg_usd": 3.00},
+    "Carbon Steel (A105)": {"density_kg_m3": 7850, "cost_per_kg_inr": 100.0},
+    "Stainless Steel 316": {"density_kg_m3": 8000, "cost_per_kg_inr": 375.0},
+    "Stainless Steel 304": {"density_kg_m3": 8000, "cost_per_kg_inr": 317.0},
+    "Duplex Steel (2205)": {"density_kg_m3": 7800, "cost_per_kg_inr": 542.0},
+    "Inconel 625": {"density_kg_m3": 8440, "cost_per_kg_inr": 2087.0},
+    "Inconel 718": {"density_kg_m3": 8190, "cost_per_kg_inr": 2500.0},
+    "Monel 400": {"density_kg_m3": 8800, "cost_per_kg_inr": 1500.0},
+    "Titanium Grade 5": {"density_kg_m3": 4430, "cost_per_kg_inr": 2922.0},
+    "Aluminum 6061": {"density_kg_m3": 2700, "cost_per_kg_inr": 250.0},
 }
 
 
@@ -60,7 +60,7 @@ def calculate_weight_cost(model: cq.Workplane, material_name: str) -> dict:
     CadQuery volumes are in mm^3, so we convert to m^3 for weight.
 
     Returns: {"volume_mm3": float, "volume_cm3": float, "weight_kg": float,
-              "cost_usd": float, "material": str, "density": float}
+              "cost_inr": float, "material": str, "density": float}
     """
     mat = MATERIALS.get(material_name)
     if mat is None:
@@ -72,16 +72,16 @@ def calculate_weight_cost(model: cq.Workplane, material_name: str) -> dict:
     volume_cm3 = volume_mm3 * 1e-3  # mm^3 -> cm^3
 
     weight_kg = volume_m3 * mat["density_kg_m3"]
-    cost_usd = weight_kg * mat["cost_per_kg_usd"]
+    cost_inr = weight_kg * mat["cost_per_kg_inr"]
 
     return {
         "volume_mm3": round(volume_mm3, 2),
         "volume_cm3": round(volume_cm3, 2),
         "weight_kg": round(weight_kg, 3),
-        "cost_usd": round(cost_usd, 2),
+        "cost_inr": round(cost_inr, 2),
         "material": material_name,
         "density_kg_m3": mat["density_kg_m3"],
-        "cost_per_kg_usd": mat["cost_per_kg_usd"],
+        "cost_per_kg_inr": mat["cost_per_kg_inr"],
     }
 
 

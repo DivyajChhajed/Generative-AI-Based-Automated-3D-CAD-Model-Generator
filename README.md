@@ -37,7 +37,7 @@
 4. If no exact match exists, the **fuzzy matching engine** suggests the 3 closest available configurations.
 5. Building a **parametric 3D solid** using CadQuery with full dimensional validation.
 6. Exporting the model as a **STEP file** (ISO 10303) into the `output/` directory.
-7. Optionally computing the **weight (kg)** and **estimated raw material cost (USD)** for 9 engineering alloys.
+7. Optionally computing the **weight (kg)** and **estimated raw material cost (INR)** for 9 engineering alloys.
 
 All of this is accessible through both a **command-line interface** and a **dark-themed Tkinter GUI** with interactive parametric sliders.
 
@@ -101,7 +101,7 @@ All of this is accessible through both a **command-line interface** and a **dark
 │               EXPORT & ESTIMATION                                   │
 │                                                                     │
 │   export_step() → output/bonnet_3_0625_10000_20260502_101530.step  │
-│   calculate_weight_cost() → Weight: 2.45 kg | Cost: $2.94 USD     │
+│   calculate_weight_cost() → Weight: 2.45 kg | Cost: ₹245.00 INR      │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -261,21 +261,21 @@ distance = |size_dataset − size_requested| + 0.5 × |pressure_dataset − pres
 The function `calculate_weight_cost(model, material_name)` computes:
 1. **Volume** — via `model.val().Volume()` (CadQuery returns mm³)
 2. **Weight** — `volume_m³ × density_kg/m³`
-3. **Cost** — `weight_kg × cost_per_kg_USD`
+3. **Cost** — `weight_kg × cost_per_kg_INR`
 
 ### Supported Materials
 
-| Material | Density (kg/m³) | Cost (USD/kg) |
+| Material | Density (kg/m³) | Cost (INR/kg) |
 |---|---|---|
-| Carbon Steel (A105) | 7,850 | $1.20 |
-| Stainless Steel 316 | 8,000 | $4.50 |
-| Stainless Steel 304 | 8,000 | $3.80 |
-| Duplex Steel (2205) | 7,800 | $6.50 |
-| Inconel 625 | 8,440 | $25.00 |
-| Inconel 718 | 8,190 | $30.00 |
-| Monel 400 | 8,800 | $18.00 |
-| Titanium Grade 5 | 4,430 | $35.00 |
-| Aluminum 6061 | 2,700 | $3.00 |
+| Carbon Steel (A105) | 7,850 | ₹100.00 |
+| Stainless Steel 316 | 8,000 | ₹375.00 |
+| Stainless Steel 304 | 8,000 | ₹317.00 |
+| Duplex Steel (2205) | 7,800 | ₹542.00 |
+| Inconel 625 | 8,440 | ₹2087.00 |
+| Inconel 718 | 8,190 | ₹2500.00 |
+| Monel 400 | 8,800 | ₹1500.00 |
+| Titanium Grade 5 | 4,430 | ₹2922.00 |
+| Aluminum 6061 | 2,700 | ₹250.00 |
 
 The GUI displays the result in the **Material & Weight Estimator** card immediately after STEP generation.
 
@@ -424,7 +424,7 @@ python ui/app.py
 | **Prompt Input** | Free-text entry with Enter-to-submit |
 | **Quick Samples** | 6 buttons (Bonnet, Flange, Spool, Blind, Tee, Gasket) that auto-fill the prompt |
 | **Material Dropdown** | Select from 9 engineering alloys |
-| **Weight/Cost Display** | Shows Weight (kg), Volume (cm³), and Est. Cost (USD) after generation |
+| **Weight/Cost Display** | Shows Weight (kg), Volume (cm³), and Est. Cost (INR) after generation |
 | **Parametric Sliders** | Scrollable panel of sliders and text entries for every dimension — edit before export |
 | **Status / Output** | Log pane with progress bar and success/error messages |
 | **Footer** | Supported parts and tips |
@@ -539,7 +539,7 @@ python -m pytest tests/ -v
 ### Add a New Material
 Add an entry to the `MATERIALS` dict in `main.py`:
 ```python
-"Hastelloy C276": {"density_kg_m3": 8890, "cost_per_kg_usd": 40.00},
+"Hastelloy C276": {"density_kg_m3": 8890, "cost_per_kg_inr": 3340.00},
 ```
 
 ### Add a New Size/Pressure Combination

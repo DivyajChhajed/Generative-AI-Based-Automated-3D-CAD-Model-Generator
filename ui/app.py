@@ -226,6 +226,7 @@ class App(tk.Tk):
             font=("Segoe UI", 10),
         )
         self.material_combo.pack(side="left", padx=10)
+        self.material_combo.bind("<<ComboboxSelected>>", lambda e: self._update_weight_display())
 
         # Style the combobox
         style = ttk.Style()
@@ -501,7 +502,7 @@ class App(tk.Tk):
                 text=(
                     f"  Weight: {result['weight_kg']:.3f} kg  |  "
                     f"Volume: {result['volume_cm3']:.1f} cm3  |  "
-                    f"Est. Cost: ${result['cost_usd']:.2f} USD"
+                    f"Est. Cost: ₹{result['cost_inr']:.2f} INR"
                 ),
                 fg=SUCCESS,
             )
@@ -616,7 +617,7 @@ class App(tk.Tk):
                 result = calculate_weight_cost(self._current_model, material)
                 self.log(
                     f"  Material: {material}  |  Weight: {result['weight_kg']:.3f} kg  |  "
-                    f"Volume: {result['volume_cm3']:.1f} cm3  |  Est. Cost: ${result['cost_usd']:.2f}"
+                    f"Volume: {result['volume_cm3']:.1f} cm3  |  Est. Cost: ₹{result['cost_inr']:.2f}"
                 )
             except Exception:
                 pass
