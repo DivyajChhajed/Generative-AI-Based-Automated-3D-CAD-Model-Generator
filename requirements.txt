@@ -1,0 +1,8 @@
+cadquery
+pandas
+ollama
+ezdxf
+tk
+groq
+python-dotenv
+pytest
