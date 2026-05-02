@@ -285,7 +285,7 @@ The GUI displays the result in the **Material & Weight Estimator** card immediat
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/your-username/Generative-AI-Based-Automated-3D-CAD-Model-Generator.git
+git clone https://github.com/DivyajChhajed/Generative-AI-Based-Automated-3D-CAD-Model-Generator.git
 cd Generative-AI-Based-Automated-3D-CAD-Model-Generator-main
 ```
 
